@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bash
+
+PUID=${PUID:-911}
+PGID=${PGID:-911}
+
+groupmod -o -g "$PGID" papercut
+usermod -o -u "$PUID" papercut
+
+if [[ ! -f /papercut/server/server.properties ]]; then
+    echo "Setting server config"
+fi
+
+mkdir -p /config/data
+for i in data/conf custom logs data/backups; do
+    if [ ! -d /config/${i} ]; then
+        cp -R /defaults/${i} /config/${i}
+        ln -s /config/${i} /papercut/server/${i}
+    fi
+done
+
+# permissions
+chown -R abc:abc \
+    /config \
+    /app
