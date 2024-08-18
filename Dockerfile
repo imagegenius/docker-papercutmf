@@ -29,7 +29,9 @@ RUN \
     /tmp/mysql.tar.gz -C \
     /tmp && \
   echo "**** setup papercut ****" && \
-  useradd -mUd /papercut -s /bin/bash papercut && \
+  useradd -U -s /bin/bash papercut && \
+  mkdir -p /papercut && \
+  chown papercut:papercut /papercut && \
   PAPERCUT_MAJOR_VERSION="$(echo ${PAPERCUT_VERSION} | cut -d'.' -f1).x" && \
   curl -o \
     /tmp/pcmf-setup.sh -L \

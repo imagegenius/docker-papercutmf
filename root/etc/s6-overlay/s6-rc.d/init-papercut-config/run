@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bash
-
+set -x
 userdel abc &>/dev/null # hacky way to keep uid/gid for papercut user
 
 PUID=${PUID:-911}
