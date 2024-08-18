@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 
 exec \
-    /etc/init.d/papercut console
+    s6-setuidgid papercut /papercut/server/bin/linux-x64/app-server console

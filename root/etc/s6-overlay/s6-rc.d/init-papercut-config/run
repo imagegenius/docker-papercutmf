@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bash
-set -x
+
+userdel abc &>/dev/null # hacky way to keep uid/gid for papercut user
+
 PUID=${PUID:-911}
 PGID=${PGID:-911}
 
@@ -15,5 +17,7 @@ for i in data/conf custom logs data/backups; do
 done
 
 # permissions
-chown -R abc:abc \
-    /config
+chown -R papercut:papercut \
+    /config \
+    /papercut
+/papercut/server/bin/linux-x64/setperms
