@@ -1,14 +1,4 @@
 #!/usr/bin/with-contenv bash
-set -x
-userdel abc &>/dev/null # hacky way to keep uid/gid for papercut user
-
-PUID=${PUID:-911}
-PGID=${PGID:-911}
-
-export HOME=/tmp # usermod takes forever as it changes permissions
-groupmod -o -g "$PGID" papercut
-usermod -o -u "$PUID" papercut
-export HOME=/papercut
 
 mkdir -p /config/data
 for i in data/conf custom logs data/backups; do
@@ -19,7 +9,6 @@ for i in data/conf custom logs data/backups; do
 done
 
 # permissions
-chown -R papercut:papercut \
-    /config \
-    /papercut
+chown -R abc:abc \
+    /config
 /papercut/server/bin/linux-x64/setperms
